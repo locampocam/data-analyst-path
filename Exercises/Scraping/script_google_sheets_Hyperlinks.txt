@@ -1,0 +1,31 @@
+function convertToHyperlinks() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  
+  // Definir los rangos para las columnas I, J, y K (de la fila 219 a 248)
+  var ranges = [
+    sheet.getRange("I219:I248"),
+    sheet.getRange("J219:J248"),
+    sheet.getRange("K219:K248")
+  ];
+
+  // Iterar sobre cada uno de los rangos
+  for (var r = 0; r < ranges.length; r++) {
+    var range = ranges[r];
+    var values = range.getValues();
+
+    // Iterar a través de las celdas en el rango
+    for (var i = 0; i < values.length; i++) {
+      var url = values[i][0]; // Obtener el valor de cada celda
+      if (url && isValidUrl(url)) { // Verificar si es una URL válida
+        var cell = sheet.getRange(i + 219, r + 9); // `r + 9` para apuntar a las columnas I, J, K
+        cell.setFormula('=HYPERLINK("' + url + '", "' + url + '")');
+      }
+    }
+  }
+}
+
+// Función para validar que el texto tiene formato de URL
+function isValidUrl(url) {
+  var pattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+  return pattern.test(url);
+}
