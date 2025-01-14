@@ -1,0 +1,31 @@
+function findUniqueFromSheet2() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+
+  // Obtener las hojas
+  var sheet1 = ss.getSheetByName("Sheet1");
+  var sheet2 = ss.getSheetByName("Sheet2");
+
+  // Obtener los datos completos desde las filas 2 hasta la última fila
+  var dataSheet1 = sheet1.getRange(2, 1, sheet1.getLastRow() - 1, sheet1.getLastColumn()).getValues();
+  var dataSheet2 = sheet2.getRange(2, 1, sheet2.getLastRow() - 1, sheet2.getLastColumn()).getValues();
+
+  // Extraer solo los job_id (asumiendo que están en la columna 1)
+  var jobIdsSheet1 = dataSheet1.map(row => row[0]); // Primera columna de la Sheet1
+  var jobIdsSheet2 = dataSheet2.map(row => row[0]); // Primera columna de la Sheet2
+
+  // Encontrar las filas únicas de Sheet2 (job_id no presentes en Sheet1)
+  var uniqueRowsSheet2 = dataSheet2.filter(row => !jobIdsSheet1.includes(row[0]));
+
+  // Crear una nueva hoja o usar una existente para los resultados
+  var resultSheet = ss.getSheetByName("Datos Únicos Sheet2") || ss.insertSheet("Datos Únicos Sheet2");
+  resultSheet.clear(); // Limpiar la hoja de resultados
+
+  // Escribir encabezados en la hoja de resultados
+  var headers = ["job_url", "job_title", "company_name", "nivel", "nivel_4", "time_posted", "num_applicants", "recruiter_name", "recruiter_link", "company_link"];
+  resultSheet.appendRow(headers);
+
+  // Escribir las filas únicas en la hoja de resultados
+  uniqueRowsSheet2.forEach(row => resultSheet.appendRow(row));
+
+  Logger.log("Se han copiado las filas únicas de Sheet2 en la hoja 'Datos Únicos Sheet2'.");
+}
