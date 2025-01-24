@@ -1,0 +1,15 @@
+Important Note
+In 2023, Twitter changed its policies. We can no longer access tweets without an account. This means that if you want to follow this section, you'll have to add a few lines of code to login to Twitter with Selenium. Although I teach you how to do this in the next lecture, I don't recommend you do it because you might get your account suspended.
+
+
+
+You can still follow the lectures of this section to learn how to infinite scrolling and other concepts.
+
+
+Update in next lecture "How to login to websites"
+
+Recently Twitter made some changes to its login page. Instead of introducing the username/password in a single form, now you have to first introduce the username, click on the "Next" button and then introduce the password. This means that the code in the next video ("How to Login to Websites") will change a bit.
+
+I updated the code attached to the video, so you can still login to Twitter with Selenium. I didn't update the video because it still remains relevant (the concepts to login with Selenium are the same)
+
+That said, if something is unclear, let me know in the comments.
